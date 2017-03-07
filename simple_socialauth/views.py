@@ -197,6 +197,7 @@ class CompleteView(BaseView):
                         # already, then it's an IntegrityError for something other
                         # than the the username field - re-raise as we won't handle it.
                         raise
+                    user.username = ''
 
             # clean up the session
             request.session.pop('simple_socialauth:user_info', {})
