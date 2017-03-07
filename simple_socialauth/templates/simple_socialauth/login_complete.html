@@ -1,0 +1,14 @@
+<html>
+<head>
+    <title>Complete Your Registration</title>
+</head>
+<body>
+    <form method='post' action="">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <div>
+            <button type="submit">Complete Signup</button>
+            <a href="{{ next|default:'/' }}">Cancel</a>
+        </div>
+    </form>
+</body>
