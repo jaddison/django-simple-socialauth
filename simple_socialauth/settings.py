@@ -1,3 +1,4 @@
+from __future__ import unicode_literals
 from django.conf import settings
 
 SIMPLE_SOCIALAUTH_LOGIN_SUCCESS_REDIRECT_URL = getattr(settings, 'SIMPLE_SOCIALAUTH_LOGIN_SUCCESS_REDIRECT_URL', None) or getattr(settings, 'LOGIN_REDIRECT_URL', '/')

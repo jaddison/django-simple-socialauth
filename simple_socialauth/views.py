@@ -1,3 +1,4 @@
+from __future__ import unicode_literals
 import datetime
 import hashlib
 
@@ -7,6 +8,7 @@ from django.core.urlresolvers import reverse
 from django.db import IntegrityError
 from django.shortcuts import redirect, render
 from django.views.generic import View
+from django.utils import six
 
 from . import signals
 from .forms import PostSocialSignupForm
@@ -182,10 +184,10 @@ class CompleteView(BaseView):
             while True:
                 if needs_username and not user.username and SIMPLE_SOCIALAUTH_GENERATE_USERNAME:
                     h = hashlib.sha256()
-                    h.update(str(user_info.get('uid', '')))
-                    h.update(provider_type)
-                    h.update(email)
-                    h.update(str(datetime.datetime.now()))
+                    h.update(six.text_type(user_info.get('uid', '')).encode('utf8'))
+                    h.update(provider_type.encode('utf8'))
+                    h.update(email.encode('utf8'))
+                    h.update(six.text_type(datetime.datetime.now()).encode('utf8'))
                     user.username = h.hexdigest()[:user._meta.get_field('username').max_length]
 
                 try:

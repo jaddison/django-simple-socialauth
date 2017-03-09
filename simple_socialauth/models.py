@@ -1,13 +1,16 @@
+from __future__ import unicode_literals
 import datetime
 import json
 
 from django.conf import settings
 from django.db import models
 from django.utils import timezone
+from django.utils.encoding import python_2_unicode_compatible
 
 from .providers import registry
 
 
+@python_2_unicode_compatible
 class SocialAccount(models.Model):
     # TODO: Does all the token related data need to move to a separate
     # 'SocialToken' model to allow for 1:many relationship with
@@ -27,7 +30,7 @@ class SocialAccount(models.Model):
         unique_together = ('uid', 'provider')
 
     def __str__(self):
-        return u"{}: {}".format(self.provider, self.uid)
+        return "{}: {}".format(self.provider, self.uid)
 
     @property
     def data(self):

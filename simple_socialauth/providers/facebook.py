@@ -1,3 +1,4 @@
+from __future__ import unicode_literals
 from requests_oauthlib.compliance_fixes import facebook_compliance_fix
 
 from .base import BaseProvider
