@@ -10,6 +10,11 @@ class BaseProvider(object):
     type = None
     name = None
 
+    authorization_url = None
+    request_token_url = None
+    access_token_url = None
+    user_api_url = None
+
     @classmethod
     def display_name(cls):
         if cls.name:
@@ -102,6 +107,12 @@ class BaseProvider(object):
             )
 
     def get_social_user_info(self):
+        url = self.user_api_url + (self.settings.get('user_api_url_params') or '')
+
+        r = self.session.get(url)
+        if r.status_code == 200:
+            return r.json()
+
         return {}
 
 

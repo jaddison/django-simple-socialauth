@@ -10,12 +10,12 @@ class AngellistProvider(BaseProvider):
     def __init__(self, **kwargs):
         self.authorization_url = 'https://angel.co/api/oauth/authorize'
         self.access_token_url = 'https://angel.co/api/oauth/token'
+        self.user_api_url = 'https://api.angel.co/1/me'
         super(AngellistProvider, self).__init__(**kwargs)
 
     def get_social_user_info(self):
-        r = self.session.get('https://api.angel.co/1/me')
-        if r.status_code == 200:
-            data = r.json()
+        data = super(AngellistProvider, self).get_social_user_info()
+        if data:
             name = data.get('name', '')
             name_split = name.split(' ', 1)
             uid = data.get('id')

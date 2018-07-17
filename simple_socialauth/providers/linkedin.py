@@ -12,15 +12,14 @@ class LinkedinProvider(BaseProvider):
     def __init__(self, **kwargs):
         self.authorization_url = 'https://www.linkedin.com/uas/oauth2/authorization'
         self.access_token_url = 'https://www.linkedin.com/uas/oauth2/accessToken'
+        self.user_api_url = 'https://api.linkedin.com/v1/people/~'
         super(LinkedinProvider, self).__init__(**kwargs)
         linkedin_compliance_fix(self.session)
         self.session.headers['x-li-format'] = 'json'
 
     def get_social_user_info(self):
-        r = self.session.get('https://api.linkedin.com/v1/people/~:(id,first-name,last-name)')
-        if r.status_code == 200:
-            data = r.json()
-
+        data = super(LinkedinProvider, self).get_social_user_info()
+        if data:
             uid = data.get('id')
             first_name = data.get('firstName', '')
             last_name = data.get('lastName', '')

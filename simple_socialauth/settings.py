@@ -29,6 +29,17 @@ SIMPLE_SOCIALAUTH_PROVIDERS_SETTINGS = {
         'callback_params': {
             'client_secret': 'my-client_secret'
         }
+        'user_api_url_params': "?fields=id,first_name,last_name,name,email,age_range,gender,birthday,languages,hometown"
+    },
+    'pinterest': {
+        'init_params': {
+            'client_id': 'my-client_id',
+        },
+        'authorize_params': {},
+        'callback_params': {
+            'client_secret': 'my-client_secret'
+        }
+        'user_api_url_params': "?fields=id,username,first_name,last_name"
     },
     'google': {
         'init_params': {
@@ -69,6 +80,7 @@ SIMPLE_SOCIALAUTH_PROVIDERS_SETTINGS = {
         'callback_params': {
             'client_secret': 'my-client_secret'
         }
+        'user_api_url_params': ":(id,first-name,last-name)"
     }
 }
 """

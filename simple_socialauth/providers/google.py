@@ -10,6 +10,7 @@ class GoogleProvider(BaseProvider):
     def __init__(self, **kwargs):
         self.authorization_url = 'https://accounts.google.com/o/oauth2/auth'
         self.access_token_url = 'https://accounts.google.com/o/oauth2/token'
+        self.user_api_url = 'https://www.googleapis.com/plus/v1/people/me'
         super(GoogleProvider, self).__init__(**kwargs)
 
     def connect(self, **kwargs):
@@ -22,9 +23,8 @@ class GoogleProvider(BaseProvider):
         return super(GoogleProvider, self).connect(**kwargs)
 
     def get_social_user_info(self):
-        r = self.session.get('https://www.googleapis.com/plus/v1/people/me')
-        if r.status_code == 200:
-            data = r.json()
+        data = super(GoogleProvider, self).get_social_user_info()
+        if data:
             uid = data.get('id')
             email = ''
             for tmp in data.get('emails', []):
@@ -36,9 +36,6 @@ class GoogleProvider(BaseProvider):
                 'source_data': data,
                 'uid': uid,
                 'username': uid,
-                'timezone': float(data.get('timezone', 0)),
-                'gender': data.get('gender', ''),
-                'language': data.get('language', '').lower(),
                 'name': data.get('displayName', ''),
                 'first_name': data.get('name', {}).get('givenName', ''),
                 'last_name': data.get('name', {}).get('familyName', ''),

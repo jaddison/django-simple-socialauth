@@ -195,12 +195,12 @@ class GithubProvider(BaseProvider):
     def __init__(self, **kwargs):
         self.authorization_url = 'https://github.com/login/oauth/authorize'
         self.access_token_url = 'https://github.com/login/oauth/access_token'
+        self.user_api_url = 'https://api.github.com/user'
         super(GithubProvider, self).__init__(**kwargs)
 
     def get_social_user_info(self):
-        r = self.session.get('https://api.github.com/user')
-        if r.status_code == 200:
-            data = r.json()
+        data = super(GithubProvider, self).get_social_user_info()
+        if data:
             uid = data.get('id')
             name = data.get('name', '')
             name_split = name.split(' ', 1)
@@ -228,6 +228,7 @@ The appropriate OAuth1/2 URLs must be set:
 * `authorization_url` (OAuth1/2)
 * `access_token_url` (OAuth1/2)
 * `request_token_url` (OAuth1 only - see the [Twitter provider](https://github.com/jaddison/django-simple-socialauth/blob/master/simple_socialauth/providers/twitter.py))
+* `user_api_url` (OAuth1/2)
 
 Any compliance fixes ought to be done at the end of the provider's `__init__`.
 

@@ -9,12 +9,12 @@ class PinterestProvider(BaseProvider):
     def __init__(self, **kwargs):
         self.authorization_url = 'https://api.pinterest.com/oauth/'
         self.access_token_url = 'https://api.pinterest.com/v1/oauth/token'
+        self.user_api_url = 'https://api.pinterest.com/v1/me/'
         super(PinterestProvider, self).__init__(**kwargs)
 
     def get_social_user_info(self):
-        r = self.session.get('https://api.pinterest.com/v1/me/?fields=id,username,first_name,last_name')
-        if r.status_code == 200:
-            data = r.json().get('data')
+        data = super(PinterestProvider, self).get_social_user_info().get('data')
+        if data:
             uid = data.get('id')
 
             return {
