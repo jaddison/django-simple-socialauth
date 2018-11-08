@@ -4,11 +4,15 @@ import hashlib
 
 from django.contrib import messages
 from django.contrib.auth import login as auth_login, authenticate, get_user_model
-from django.core.urlresolvers import reverse
 from django.db import IntegrityError
 from django.shortcuts import redirect, render
 from django.views.generic import View
 from django.utils import six
+
+try:
+    from django.urls import reverse
+except ImportError:
+    from django.core.urlresolvers import reverse
 
 from . import signals
 from .forms import PostSocialSignupForm

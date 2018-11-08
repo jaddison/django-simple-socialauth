@@ -8,7 +8,7 @@ UserModel = get_user_model()
 
 
 class Backend(StandardModelBackend):
-    def authenticate(self, social=False, **kwargs):
+    def authenticate(self, request, social=False, **kwargs):
         if social:
             uid = kwargs.get('uid', '')
             provider = kwargs.get('provider', '')
