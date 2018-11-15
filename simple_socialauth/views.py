@@ -96,7 +96,7 @@ class CallbackView(BaseView):
                     account = None
 
                 if account:
-                    if request.user.is_authenticated():
+                    if request.user.is_authenticated:
                         if request.user.id != account.user_id:
                             messages.error(request, "This {0} account is associated with another user.".format(
                                 provider.display_name()))
@@ -113,7 +113,7 @@ class CallbackView(BaseView):
                     # special case for google auth - we need to force a re-auth to ensure we get a refresh_token
                     return redirect(reverse('simple_socialauth-login', args=(provider_type,)) + '?force=1')
 
-                if not request.user.is_authenticated():
+                if not request.user.is_authenticated:
                     # we need to redirect the user to another page in order to complete
                     # some signup details - save the social user info to the session
                     # for later use
@@ -155,7 +155,7 @@ class CompleteView(BaseView):
         # we can't legitimately be here if:
         # - we're logged in or
         # - don't have have user_info
-        if not user_info or request.user.is_authenticated():
+        if not user_info or request.user.is_authenticated:
             return redirect(SIMPLE_SOCIALAUTH_LOGIN_ERROR_REDIRECT_URL)
 
         kw = {
