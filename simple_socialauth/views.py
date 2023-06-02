@@ -7,7 +7,7 @@ from django.contrib.auth import login as auth_login, authenticate, get_user_mode
 from django.db import IntegrityError
 from django.shortcuts import redirect, render
 from django.views.generic import View
-from django.utils import six
+from six import text_type
 
 try:
     from django.urls import reverse
@@ -188,10 +188,10 @@ class CompleteView(BaseView):
             while True:
                 if needs_username and not user.username and SIMPLE_SOCIALAUTH_GENERATE_USERNAME:
                     h = hashlib.sha256()
-                    h.update(six.text_type(user_info.get('uid', '')).encode('utf8'))
+                    h.update(text_type(user_info.get('uid', '')).encode('utf8'))
                     h.update(provider_type.encode('utf8'))
                     h.update(email.encode('utf8'))
-                    h.update(six.text_type(datetime.datetime.now()).encode('utf8'))
+                    h.update(text_type(datetime.datetime.now()).encode('utf8'))
                     user.username = h.hexdigest()[:user._meta.get_field('username').max_length]
 
                 try:
