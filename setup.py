@@ -1,24 +1,13 @@
 from __future__ import unicode_literals
 from setuptools import setup, find_packages
-from codecs import open
-from os import path
 
 import simple_socialauth
-
-here = path.abspath(path.dirname(__file__))
-
-# Get the long description from the README file
-try:
-    import pypandoc
-    long_description = pypandoc.convert(path.join(here, 'README.md'), 'rst')
-except ImportError:
-    long_description = open(path.join(here, 'README.md')).read()
 
 setup(
     name='django-simple-socialauth',
     version=simple_socialauth.__version__,
     description="Django social account authentication app based on requests-oauthlib.",
-    long_description=long_description,
+    long_description='View `django-simple-socialauth documentation on Github  <https://github.com/jaddison/django-simple-socialauth>`_.',
     keywords='django social authentication oauth register login auth',
 
     url='https://github.com/jaddison/django-simple-socialauth',
